@@ -1,0 +1,28 @@
+# AWS VPC Peering Setup Guide
+
+## Goal
+Create two VPCs and connect them using VPC Peering so instances can communicate using private IPs.
+
+## VPC Details
+- test-VPC CIDR: 10.0.0.0/16
+- prod-VPC CIDR: 192.168.0.0/16
+
+## Steps
+1. Create test-VPC and prod-VPC (non-overlapping CIDRs)
+2. Create public + private subnets in each VPC
+3. Attach Internet Gateway to each VPC (for public subnet use)
+4. Create NAT Gateway in public subnet (for private subnet outbound access)
+5. Launch EC2 instances (App in public, DB in private or as per your lab)
+6. Create VPC Peering connection between test-VPC and prod-VPC
+7. Update route tables:
+   - test-VPC route table: add route to 192.168.0.0/16 via peering
+   - prod-VPC route table: add route to 10.0.0.0/16 via peering
+8. Update Security Groups:
+   - allow ICMP (ping) from the other VPC CIDR
+   - allow SSH only from your IP (recommended)
+
+## Testing
+From an EC2 instance in test-VPC, ping private IP of EC2 in prod-VPC:
+`ping <private-ip>`
+
+If successful, VPC Peering + routes + SG are correct.
