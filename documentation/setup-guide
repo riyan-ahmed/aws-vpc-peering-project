@@ -26,3 +26,10 @@ From an EC2 instance in test-VPC, ping private IP of EC2 in prod-VPC:
 `ping <private-ip>`
 
 If successful, VPC Peering + routes + SG are correct.
+
+If ping fails:
+
+-Check route tables both sides
+-Ensure SG allows ICMP from other VPC CIDR
+-Ensure NACL not blocking (if you changed it)
+-Ensure instances are in correct subnets
