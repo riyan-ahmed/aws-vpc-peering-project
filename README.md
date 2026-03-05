@@ -34,3 +34,8 @@ Step-by-step guide: `documentation/setup-guide.md`
 - Secure architecture with public/private subnets
 - Cross-VPC connectivity using VPC Peering
 - Debugging routing + security group issues
+
+## Test Result
+-Connectivity validated via ICMP across VPC peering
+-Route tables updated on both VPCs
+-Security group allowed ICMP from peer CIDR
